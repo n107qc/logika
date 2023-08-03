@@ -11,9 +11,8 @@ text = QLabel('НАисни щоб дізнатись переможця')
 winner = QLabel('?')
 line = QVBoxLayout()
 line.addWidget(text, alignment=Qt.AlignCenter)
-line.addWidget(text)
-line.addWidget(winner)
-line.addWidget(button)
+line.addWidget(winner,alignment=Qt.AlignCenter)
+line.addWidget(button,alignment=Qt.AlignCenter)
 
 def win():
     ran = randint(1, 1000)
