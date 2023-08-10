@@ -7,7 +7,7 @@ app = QApplication([])
 main_window = QWidget()
 
 button = QPushButton('Згенерувати')
-text = QLabel('НАисни щоб дізнатись переможця')
+text = QLabel('Натисни щоб дізнатись переможця')
 winner = QLabel('?')
 line = QVBoxLayout()
 line.addWidget(text, alignment=Qt.AlignCenter)
