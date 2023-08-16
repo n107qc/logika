@@ -26,6 +26,20 @@ layoutV.addLayout(layoutH1)
 layoutV.addLayout(layoutH2)
 layoutV.addLayout(layoutH3)
 
+def lose():
+    a = QMessageBox()
+    a.setText('згадай підручник за 10 клас')
+    a.exec_()
+radio_button3.clicked.connect(lose)
+radio_button2.clicked.connect(lose)
+radio_button4.clicked.connect(lose)
+
+def win():
+    a = QMessageBox()
+    a.setText('Згадав підручник за 10 клас')
+    a.exec_()
+radio_button1.clicked.connect(win)
+
 main_win.setLayout(layoutV)
 
 main_win.show()
