@@ -53,8 +53,8 @@ lb_Result = QLabel('')
 lb_Correct = QLabel('')
 
 layout_res = QVBoxLayout()
-layout_res.addWidget(lb_Result, aligment=(Qt.AlignLeft | Qt.AlignTop))
-layout_res.addWidget(lb_Result, aligment=Qt.AliggnHCenter)
+layout_res.addWidget(lb_Result, alignment=(Qt.AlignLeft | Qt.AlignTop))
+layout_res.addWidget(lb_Result, alignment=Qt.AlignHCenter)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
 
@@ -69,7 +69,7 @@ layout_line1.addWidget(btn_sleep)
 layout_line1.addWidget(box_minutes)
 layout_line1.addWidget(QLabel('хвилини'))
 
-layout_line2.addWidget(lb_Question, alignment=(Qt.AlignmentHCenter | Qt.Aligment))
+layout_line2.addWidget(lb_Question, alignment=(Qt.AlignHCenter | Qt.AlignVCenter))
 
 layout_line3.addWidget(RadioGroupBox)
 layout_line3.addWidget(AnsGroupBox)
