@@ -33,7 +33,7 @@ RadioGroup.addButton(rbtn2)
 RadioGroup.addButton(rbtn3)
 RadioGroup.addButton(rbtn4)
 
-layout_ans1 = QHBoxLayout()
+layout_ans4 = QHBoxLayout()
 layout_ans2 = QHBoxLayout()
 layout_ans3 = QHBoxLayout()
 
@@ -43,10 +43,10 @@ layout_ans2.addWidget(rbtn2)
 layout_ans3.addWidget(rbtn3)
 layout_ans3.addWidget(rbtn4)
 
-layout_ans1.addLayout(layout_ans2)
-layout_ans1.addLayout(layout_ans3)
+layout_ans4.addLayout(layout_ans2)
+layout_ans4.addLayout(layout_ans3)
 
-RadioGroupBox.setLayout(layout_ans1)
+RadioGroupBox.setLayout(layout_ans4)
 
 AnsGroupBox = QGroupBox("Результат тесту")
 lb_Result = QLabel('')
@@ -73,7 +73,7 @@ layout_line2.addWidget(lb_Question, alignment=(Qt.AlignHCenter | Qt.AlignVCenter
 
 layout_line3.addWidget(RadioGroupBox)
 layout_line3.addWidget(AnsGroupBox)
-layout_line3.addStretch(1)
+layout_line4.addStretch(1)
 
 layout_line4.addWidget(btn_Ok)
 layout_line4.addStretch(1)
