@@ -33,7 +33,7 @@ RadioGroup.addButton(rbtn2)
 RadioGroup.addButton(rbtn3)
 RadioGroup.addButton(rbtn4)
 
-layout_ans1 = QHBoxLayout()
+layout_ans1 = QVBoxLayout()
 layout_ans2 = QHBoxLayout()
 layout_ans3 = QHBoxLayout()
 
