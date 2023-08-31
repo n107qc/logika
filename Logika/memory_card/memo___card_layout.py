@@ -100,8 +100,22 @@ layoyt_card.setSpacing(5)
 # Результат роботи цього модуля: віджети поміщені всередину layout_card, який можна призначити вікну.
 def show_result():
     ''' показати панель відповідей '''
-    pass
+    RadioGroupBox.hide()
+    AnsGroupBox.show()
+    btn_Ok.setText('Наступне питання')
+
 
 def show_question():
-    ''' показати панель запитань '''
-    pass
+    ''' показати панель питань '''
+    RadioGroupBox.show()
+    AnsGroupBox.hide()
+    btn_Ok.setText('Відповісти')
+    # скинути вибрану радіо-кнопку
+    # зняли обмеження, щоб можна було скинути вибір радіокнопки
+    RadioGroup.setExclusive(False)
+    rbtn1.setChecked(False)
+    rbtn2.setChecked(False)
+    rbtn3.setChecked(False)
+    rbtn4.setChecked(False)
+    # повернули обмеження, тепер лише одна радіокнопка може бути вибрана
+    RadioGroup.setExclusive(True)
