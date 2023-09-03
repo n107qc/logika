@@ -27,13 +27,13 @@ win_card = QWidget()
 # Тестові данні
 def testlist():
 
-    frm = Question('Яблуко', 'apple', 'application', 'pinapple', 'apply')
+    frm = Question('Вежа', 'tower', 'hostage', 'ecstasy', 'apply')
     questions_listmodel.form_list.append(frm)
-    frm = Question('Дім', 'house', 'horse', 'hurry', 'hour')
+    frm = Question('Срібло', 'silver', 'horse', 'cherry', 'calculation')
     questions_listmodel.form_list.append(frm)
-    frm = Question('Мишка', 'mouse', 'mouth', 'muse', 'museum')
+    frm = Question('Дивовижно', 'wonder', 'mouth', 'team', 'burn')
     questions_listmodel.form_list.append(frm)
-    frm = Question('Число', 'number', 'digit', 'amount', 'summary')
+    frm = Question('Помста', 'revenge', 'requite', 'amount', 'reward')
     questions_listmodel.form_list.append(frm)
 
 # Функції для проведення тесту
