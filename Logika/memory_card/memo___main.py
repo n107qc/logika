@@ -35,6 +35,15 @@ def testlist():
     questions_listmodel.form_list.append(frm)
     frm = Question('Помста', 'revenge', 'requite', 'amount', 'reward')
     questions_listmodel.form_list.append(frm)
+    frm = Question('Пристань', 'pier', 'celebration', 'celebration', 'list')
+    questions_listmodel.form_list.append(frm)
+    frm = Question('Потужність ', 'power', 'squeeze', 'complain', 'network')
+    questions_listmodel.form_list.append(frm)
+    frm = Question('Вузол', 'node', 'blast', 'temptation', 'folk')
+    questions_listmodel.form_list.append(frm)
+    frm = Question('Кухня', 'kitchen', 'radiation', 'disagreement', 'blank')
+    questions_listmodel.form_list.append(frm)
+
 
 # Функції для проведення тесту
 
