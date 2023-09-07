@@ -54,7 +54,7 @@ lb_Correct = QLabel('')
 
 layout_res = QVBoxLayout()
 layout_res.addWidget(lb_Result, alignment=(Qt.AlignLeft | Qt.AlignTop))
-layout_res.addWidget(lb_Result, alignment=Qt.AlignHCenter)
+layout_res.addWidget(lb_Correct, alignment=Qt.AlignHCenter)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
 

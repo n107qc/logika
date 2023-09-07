@@ -56,6 +56,25 @@ def set_card():
     win_card.setLayout(layoyt_card)
 
 
+
+win_main.setStyleSheet('''
+                        background-color: LightCyan;
+                        color: SandyBrown;
+                        font-size: 20px;
+                        border: 2px solid SandyBrown; 
+                        ''')
+
+win_card.setStyleSheet('''
+                        background-color: LightCyan;
+                        color: SandyBrown;
+                        font-size: 20px;
+                        border: 2px solid SandyBrown; 
+                        ''')
+
+lb_Result.setStyleSheet('margin: 20px')
+
+
+
 def set_main():
     ''' задає, який вигляд має основне вікно'''
     win_main.resize(main_width, main_height)
