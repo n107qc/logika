@@ -26,7 +26,6 @@ win_card = QWidget()
 
 # Тестові данні
 def testlist():
-
     frm = Question('Вежа', 'tower', 'hostage', 'ecstasy', 'apply')
     questions_listmodel.form_list.append(frm)
     frm = Question('Срібло', 'silver', 'horse', 'cherry', 'calculation')
