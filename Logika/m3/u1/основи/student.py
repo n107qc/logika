@@ -18,3 +18,8 @@ with open('student.txt', 'r', encoding='utf-8')  as file:
 for student in students:
     if student.grade == 5:
         print(student.surname)
+
+total_grades = sum(student.grade for student in students)
+average_grade = total_grades / len(students) if students else 0
+
+print(f'Середня оцінка: {average_grade:.2f}')
