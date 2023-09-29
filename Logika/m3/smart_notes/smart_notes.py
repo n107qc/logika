@@ -1,79 +1,112 @@
+# основа🥟
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
-    QApplication, QWidget, QTextEdit, QLabel, 
-    QListWidget, QPushButton, QLineEdit, QHBoxLayout, QVBoxLayout, QInputDialog,
-    QTableWidget, QListWidgetItem, QFormLayout, 
-    QGroupBox, QButtonGroup, QRadioButton, QSpinBox)
+    QApplication, QWidget, QLabel, QPushButton, 
+    QHBoxLayout, QVBoxLayout, QListWidget, QLineEdit, 
+    QTextEdit, QInputDialog, QTableWidget,  QListWidgetItem,
+    QFormLayout, QGroupBox, QButtonGroup, QRadioButton, QSpinBox)
 import json
 
+def writeToFile():
+    with open('note.json', 'w', encoding='utf8') as file:
+        json.dump(notes, file, ensure_ascii=False, sort_keys=True, indent=4)
+
 app = QApplication([])
+
 window = QWidget()
-main_width, main_height = 800, 600  #  розміри головного вікна
 
-text_editor = QTextEdit()
-text_editor.setPlaceholderText('Введіть текст...')
 
-list_widget_1 = QListWidget()
-list_widget_2 = QListWidget()
-input_dialog = QLineEdit()
-input_dialog.setPlaceholderText('Введіть тег...')
+
+
+filed_text = QTextEdit()
+lb_notes = QLabel("Список Заміток ༼ つ ◕_◕ ༽つ🥖")
+lst_notes = QListWidget()
 
 # верхні кнопочки
-btn_note_create = QPushButton()
-btn_note_create.setText('Створити заміточку')
-btn_note_delete = QPushButton()
-btn_note_delete.setText('Видалити заміточку')
-btn_note_save = QPushButton()
-btn_note_save.setText('Зберегти заміточку')
+btn_note_create = QPushButton("Створити ψ(｀∇´)ψ🍼")
+btn_note_delete = QPushButton("Видалити O(∩_∩)O🥓")
+btn_note_save = QPushButton("Зберигти \^o^/🥩")
+
+filed_tag = QLineEdit()
+lb_tags = QLabel('Список Тегів (～￣▽￣)～🥂')
+lst_tags = QListWidget()
 
 
 # нижні кнопочки
-btn_note_add_notes = QPushButton()
-btn_note_add_notes.setText('Додати до заміточок')
-btn_note_unpin = QPushButton()
-btn_note_unpin.setText('Відкріпити від заміточок')
-btn_note_search_teg = QPushButton()
-btn_note_search_teg.setText('Шукати заміточку за тегом')
+btn_tag_add_notes = QPushButton("Додати до замітки ◑﹏◐☕")
+btn_tag_unpin = QPushButton("Відкріпити від замітки (✿◕‿◕✿)🥞")
+btn_tag_search_teg = QPushButton("Шукати замітки за тегом (★ ω ★)🍕")
 
-
-
-
-row2 = QHBoxLayout()
-row2.addWidget(btn_note_add_notes)
-row2.addWidget(btn_note_unpin)
-row1 = QHBoxLayout()
-row1.addWidget(btn_note_create)
-row1.addWidget(btn_note_delete)
-
+loyout_notes = QHBoxLayout()
 col1 = QVBoxLayout()
-col1.addWidget(text_editor)
-
 col2 = QVBoxLayout()
-col2.addWidget(QLabel('Список заміточок'))
-col2.addWidget(list_widget_1)
-col2.addLayout(row1) 
-col2.addWidget(btn_note_save)  
-col2.addWidget(QLabel('Список тегів'))
-col2.addWidget(list_widget_2)
-col2.addWidget(input_dialog)
-col2.addLayout(row2)
-col2.addWidget(btn_note_search_teg)
-
-layout_notes = QHBoxLayout()
-layout_notes.addLayout(col1, stretch=2)
-layout_notes.addLayout(col2)
 
 
-with open('note.json', 'r', encoding='utf8') as file:
+loyout_notes.addLayout(col1, stretch=2)
+loyout_notes.addLayout(col2, stretch=1)
+
+col1.addWidget(filed_text)
+col2.addWidget(lb_notes)
+col2.addWidget(lst_notes)
+col2.addWidget(btn_note_create)
+col2.addWidget(btn_note_delete)
+col2.addWidget(btn_note_save)
+
+col2.addWidget(lb_tags)
+col2.addWidget(lst_tags)
+col2.addWidget(filed_tag)
+col2.addWidget(btn_tag_add_notes)
+col2.addWidget(btn_tag_unpin)
+col2.addWidget(btn_tag_search_teg)
+
+def show_notes():
+    key = lst_notes.currentItem().text()
+    filed_tag.setText(notes[key]['текст'])
+
+    lst_tags.clear()
+    lst_tags.addItems(notes[key]['теги'])
+
+def add_note():
+    note_name, ok = QInputDialog.getText(window, 'Додати Замітку', 'Нова замітка')
+    if note_name and ok:
+        lst_notes.addItem(note_name)
+        notes[note_name] = {'текст': "", "теги": []}
+
+        writeToFile()
+        
+def del_note():
+    if lst_notes.currentItem():
+        key = lst_notes.currentItem().text()
+        del notes[key]
+
+        filed_text.clear()
+        lst_tags.clear()
+        lst_notes.clear()
+        lst_notes.addItems(notes)
+
+        writeToFile()
+
+    else:
+        print("НЕЗЯ")
+
+def save_note():
+    if lst_notes.currentItem():
+        key = lst_notes.currentItem().text()
+        notes[key]['текст'] = filed_text.toPlainText()
+
+        writeToFile()
+
+btn_note_save.clicked.connect(save_note)
+btn_note_delete.clicked.connect(del_note)
+btn_note_create.clicked.connect(add_note)
+lst_notes.itemClicked.connect(show_notes)
+
+with open('note.json', 'r' , encoding = 'utf8') as file:
     notes = json.load(file)
 
-list_widget_1.addItems(notes)
+lst_notes.addItems(notes)    
 
 
-
-
-
-window.setLayout(layout_notes)
-window.resize(main_width,main_height)
+window.setLayout(loyout_notes)
 window.show()
-app.exec_()
+app.exec()
