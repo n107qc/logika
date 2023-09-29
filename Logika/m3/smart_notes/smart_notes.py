@@ -37,10 +37,74 @@ btn_tag_add_notes = QPushButton("Додати до замітки ◑﹏◐☕")
 btn_tag_unpin = QPushButton("Відкріпити від замітки (✿◕‿◕✿)🥞")
 btn_tag_search_teg = QPushButton("Шукати замітки за тегом (★ ω ★)🍕")
 
+window.setStyleSheet('''
+                        background-color: AliceBlue;
+                        color: Navy;
+                        font-size: 20px;
+                        border: 2px solid DarkGoldenRod; 
+                        ''')
+
+lst_notes.setStyleSheet('''
+                        background-color: CornflowerBlue;
+                        color: DarkBlue;
+                        font-size: 20px;
+                        border: 2px solid Chartreuse; 
+                        ''')
+
+btn_note_create.setStyleSheet('''
+                        background-color: Crimson;
+                        color: DarkSlateGrey;
+                        font-size: 20px;
+                        border: 2px solid DimGrey; 
+                        ''')
+
+btn_note_delete.setStyleSheet('''
+                        background-color: OrangeRed;
+                        color: Purple;
+                        font-size: 20px;
+                        border: 2px solid Teal; 
+                        ''')
+
+btn_note_save.setStyleSheet('''
+                        background-color: DarkMagenta;
+                        color: DarkRed;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+
+lst_tags.setStyleSheet('''
+                        background-color: CornflowerBlue;
+                        color: Coral;
+                        font-size: 20px;
+                        border: 2px solid DarkOliveGreen; 
+                        ''')
+
+
+btn_tag_add_notes.setStyleSheet('''
+                        background-color: Khaki;
+                        color: LightCoral;
+                        font-size: 20px;
+                        border: 2px solid LightGoldenRodYellow; 
+                        ''')
+
+btn_tag_unpin.setStyleSheet('''
+                        background-color: Green;
+                        color: IndianRed;
+                        font-size: 20px;
+                        border: 2px solid DarkSlateGrey; 
+                        ''')
+
+btn_tag_search_teg.setStyleSheet('''
+                        background-color: CornflowerBlue;
+                        color: BlueViolet;
+                        font-size: 20px;
+                        border: 2px solid Coral; 
+                        ''')
+
 loyout_notes = QHBoxLayout()
 col1 = QVBoxLayout()
 col2 = QVBoxLayout()
-
 
 loyout_notes.addLayout(col1, stretch=2)
 loyout_notes.addLayout(col2, stretch=1)
