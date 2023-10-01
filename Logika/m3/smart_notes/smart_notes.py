@@ -125,7 +125,7 @@ col2.addWidget(btn_tag_search_teg)
 
 def show_notes():
     key = lst_notes.currentItem().text()
-    filed_tag.setText(notes[key]['текст'])
+    filed_text.setText(notes[key]['текст'])
 
     lst_tags.clear()
     lst_tags.addItems(notes[key]['теги'])
