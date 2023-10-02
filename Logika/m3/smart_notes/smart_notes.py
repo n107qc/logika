@@ -41,7 +41,7 @@ window.setStyleSheet('''
                         background-color: AliceBlue;
                         color: Navy;
                         font-size: 20px;
-                        border: 2px solid DarkGoldenRod; 
+                        border: 2px solid Indigo; 
                         ''')
 
 lst_notes.setStyleSheet('''
