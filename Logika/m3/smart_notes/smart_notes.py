@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
     QFormLayout, QGroupBox, QButtonGroup, QRadioButton, QSpinBox)
 import json
 
-def writeToFile():
+def saveToFile():
     with open('note.json', 'w', encoding='utf8') as file:
         json.dump(notes, file, ensure_ascii=False, sort_keys=True, indent=4)
 
@@ -23,7 +23,7 @@ lb_notes = QLabel("Список Заміток ༼ つ ◕_◕ ༽つ🥖")
 lst_notes = QListWidget()
 
 # верхні кнопочки
-btn_note_create = QPushButton("Створити ψ(｀∇´)ψ🍼")
+btn_note_create = QPushButton("Створити ψ(｀∇´)ψ🍰")
 btn_note_delete = QPushButton("Видалити O(∩_∩)O🥓")
 btn_note_save = QPushButton("Зберигти \^o^/🥩")
 
@@ -33,9 +33,9 @@ lst_tags = QListWidget()
 
 
 # нижні кнопочки
-btn_tag_add_notes = QPushButton("Додати до замітки ◑﹏◐☕")
-btn_tag_unpin = QPushButton("Відкріпити від замітки (✿◕‿◕✿)🥞")
-btn_tag_search_teg = QPushButton("Шукати замітки за тегом (★ ω ★)🍕")
+btn_tag_add = QPushButton("Додати тег ◑﹏◐☕")
+btn_tag_del = QPushButton("Відкріпити від замітки (✿◕‿◕✿)🥞")
+btn_tag_search = QPushButton("Шукати замітки за тегом (★ ω ★)🍕")
 
 window.setStyleSheet('''
                         background-color: AliceBlue;
@@ -81,21 +81,21 @@ lst_tags.setStyleSheet('''
                         ''')
 
 
-btn_tag_add_notes.setStyleSheet('''
+btn_tag_add.setStyleSheet('''
                         background-color: Khaki;
                         color: LightCoral;
                         font-size: 20px;
                         border: 2px solid LightGoldenRodYellow; 
                         ''')
 
-btn_tag_unpin.setStyleSheet('''
+btn_tag_del.setStyleSheet('''
                         background-color: Green;
                         color: IndianRed;
                         font-size: 20px;
                         border: 2px solid DarkSlateGrey; 
                         ''')
 
-btn_tag_search_teg.setStyleSheet('''
+btn_tag_search.setStyleSheet('''
                         background-color: CornflowerBlue;
                         color: BlueViolet;
                         font-size: 20px;
@@ -119,9 +119,9 @@ col2.addWidget(btn_note_save)
 col2.addWidget(lb_tags)
 col2.addWidget(lst_tags)
 col2.addWidget(filed_tag)
-col2.addWidget(btn_tag_add_notes)
-col2.addWidget(btn_tag_unpin)
-col2.addWidget(btn_tag_search_teg)
+col2.addWidget(btn_tag_add)
+col2.addWidget(btn_tag_del)
+col2.addWidget(btn_tag_search)
 
 def show_notes():
     key = lst_notes.currentItem().text()
@@ -130,15 +130,15 @@ def show_notes():
     lst_tags.clear()
     lst_tags.addItems(notes[key]['теги'])
 
-def add_note():
+def note_create():
     note_name, ok = QInputDialog.getText(window, 'Додати Замітку', 'Нова замітка')
     if note_name and ok:
         lst_notes.addItem(note_name)
         notes[note_name] = {'текст': "", "теги": []}
 
-        writeToFile()
+        saveToFile()
         
-def del_note():
+def note_delete():
     if lst_notes.currentItem():
         key = lst_notes.currentItem().text()
         del notes[key]
@@ -148,22 +148,78 @@ def del_note():
         lst_notes.clear()
         lst_notes.addItems(notes)
 
-        writeToFile()
+        saveToFile()
 
     else:
-        print("НЕЗЯ")
+        print("Неможна")
 
-def save_note():
+def note_save():
     if lst_notes.currentItem():
         key = lst_notes.currentItem().text()
         notes[key]['текст'] = filed_text.toPlainText()
 
-        writeToFile()
+        saveToFile()
 
-btn_note_save.clicked.connect(save_note)
-btn_note_delete.clicked.connect(del_note)
-btn_note_create.clicked.connect(add_note)
+def tag_add():
+    key = lst_notes.currentItem().text()
+    tag = filed_tag.text()
+
+    notes[key]['теги'].append(tag)
+
+    lst_tags.addItem(tag)
+    saveToFile()
+
+    
+def tag_del():
+    key =lst_notes.currentItem().text()
+    tag = lst_tags.currentItem().text()
+
+    notes[key]['теги'].remove(tag)
+
+    lst_tags.clear()
+    lst_tags.addItems(notes[key]['теги'])
+
+    saveToFile()
+
+
+def tag_search():
+    tag = filed_tag.text()
+
+    if 'Шукати замітки за тегом (★ ω ★)🍕' == btn_tag_search.text():
+        filtered_notes = {}
+
+        for key in notes:
+            if tag in notes[key]['теги']:
+                filtered_notes[key] = notes[key]
+
+        btn_tag_search.setText('Скинути пошук(⓿_⓿)🍳')
+
+        lst_notes.clear()
+        lst_notes.addItems(filtered_notes)
+        lst_tags.clear()
+        filed_text.clear()
+        filed_tag.clear()
+
+    elif  'Скинути пошук(⓿_⓿)🍳' == btn_tag_search.text():
+        btn_tag_search.setText('Шукати замітки за тегом (★ ω ★)🍕')
+        
+        lst_notes.clear()
+        lst_notes.addItems(notes)
+        lst_tags.clear()
+        filed_text.clear()
+        filed_tag.clear()
+
+
+btn_note_save.clicked.connect(note_save)
+btn_note_delete.clicked.connect(note_delete)
+btn_note_create.clicked.connect(note_create)
 lst_notes.itemClicked.connect(show_notes)
+
+btn_tag_add.clicked.connect(tag_add)
+btn_tag_del.clicked.connect(tag_del)
+btn_tag_search.clicked.connect(tag_search)
+
+
 
 with open('note.json', 'r' , encoding = 'utf8') as file:
     notes = json.load(file)
