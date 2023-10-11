@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton, 
     QHBoxLayout, QVBoxLayout, QListWidget, QLineEdit, 
     QTextEdit, QInputDialog, QTableWidget,  QListWidgetItem,
-    QFormLayout, QGroupBox, QButtonGroup, QRadioButton, QSpinBox)
+    QFormLayout, QGroupBox, QButtonGroup, QRadioButton, QSpinBox,QMessageBox)
 import json
 
 def saveToFile():
@@ -125,17 +125,41 @@ col2.addWidget(btn_tag_search)
 
 def show_notes():
     key = lst_notes.currentItem().text()
-    filed_text.setText(notes[key]['текст'])
+    if 'пароль' in notes[key]:
+        enter_password()
+    else:
+        filed_text.setText(notes[key]['текст'])
+        lst_tags.clear()
+        lst_tags.addItems(notes[key]['теги'])
 
-    lst_tags.clear()
-    lst_tags.addItems(notes[key]['теги'])
+    
+def set_password():
+    key = lst_notes.currentItem().text()
+    password, ok = QInputDialog.getText(window, 'Встановити пароль(❤ ω ❤)', 'Введіть пароль для замітки(⓿_⓿):')
+    if ok:
+        notes[key]['пароль'] = password
+        
+        saveToFile()
+
+def enter_password():
+    key = lst_notes.currentItem().text()
+    password, ok = QInputDialog.getText(window, 'Введіть пароль(o|o) ', 'Будь ласка, введіть пароль(。・ω・。):')      
+    if ok and notes[key].get('пароль') == password:
+        filed_text.setText(notes[key]['текст'])
+        lst_tags.clear()
+        lst_tags.addItems(notes[key]['теги'])
+    elif ok:
+        filed_text.clear()
+        filed_tag.clear()
+        QMessageBox.warning(window, 'Помилка(　o=^•ェ•)o　┏━┓', 'Неправильний пароль!(。・ω・。)')
+
+        saveToFile()
 
 def note_create():
     note_name, ok = QInputDialog.getText(window, 'Додати Замітку', 'Нова замітка')
     if note_name and ok:
         lst_notes.addItem(note_name)
-        notes[note_name] = {'текст': "", "теги": []}
-
+        notes[note_name] = {'текст': "", 'теги': []}
         saveToFile()
         
 def note_delete():
@@ -213,6 +237,7 @@ def tag_search():
 btn_note_save.clicked.connect(note_save)
 btn_note_delete.clicked.connect(note_delete)
 btn_note_create.clicked.connect(note_create)
+btn_note_create.clicked.connect(set_password)
 lst_notes.itemClicked.connect(show_notes)
 
 btn_tag_add.clicked.connect(tag_add)
@@ -225,7 +250,6 @@ with open('note.json', 'r' , encoding = 'utf8') as file:
     notes = json.load(file)
 
 lst_notes.addItems(notes)    
-
 
 window.setLayout(loyout_notes)
 window.show()
