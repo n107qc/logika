@@ -11,16 +11,88 @@ app = QApplication([])
 
 window = QWidget()
 
-btn_folder = QPushButton('Folder')
 
-btn_left = QPushButton('Вліво')
-btn_right = QPushButton('Вправо')
-btn_flip = QPushButton('Перевернути')
-btn_sharp = QPushButton("різкість")
-btn_bw = QPushButton('Перетворити в чорнобіле')
+
+btn_folder = QPushButton('Folderψ(._. )>')
+
+btn_left = QPushButton('Вліво(ಥ _ ಥ)')
+btn_right = QPushButton('Вправоo(〃＾▽＾〃)o')
+btn_flip = QPushButton('Перевернути(⓿_⓿)')
+btn_sharp = QPushButton("різкістьლ(╹◡╹ლ)")
+btn_bw = QPushButton('Перетворити в чорнобіле◑﹏◐')
 
 lst_files = QListWidget()
-lb_pic = QLabel('Картинки')
+lb_pic = QLabel('Картинки(^人^)')
+
+window.setStyleSheet('''
+                        background-color: AliceBlue;
+                        color: Navy;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_folder.setStyleSheet('''
+                        background-color: MediumOrchid;
+                        color: Black;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_left.setStyleSheet('''
+                        background-color: Lime;
+                        color: MediumVioletRed;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_right.setStyleSheet('''
+                        background-color: Tomato;
+                        color: Turquoise;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_flip.setStyleSheet('''
+                        background-color: DarkGoldenRod;
+                        color: Black;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_sharp.setStyleSheet('''
+                        background-color: Crimson;
+                        color: Black;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_sharp.setStyleSheet('''
+                        background-color: Crimson;
+                        color: Black;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_bw.setStyleSheet('''
+                        background-color: LightSeaGreen;
+                        color: NavajoWhite;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+btn_bw.setStyleSheet('''
+                        background-color: LightSeaGreen;
+                        color: NavajoWhite;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
+lst_files.setStyleSheet('''
+                        background-color: PaleVioletRed;
+                        color: MediumVioletRed;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
 
 Layout1 = QHBoxLayout()
 Layout2 = QHBoxLayout()
