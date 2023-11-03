@@ -37,6 +37,11 @@ btn_tag_add = QPushButton("Додати тег ◑﹏◐☕")
 btn_tag_del = QPushButton("Відкріпити від замітки (✿◕‿◕✿)🥞")
 btn_tag_search = QPushButton("Шукати замітки за тегом (★ ω ★)🍕")
 
+#штуки для паролю
+#set_password = QPushButton("Встановити Пароль(ﾉ*ФωФ)ﾉ")
+
+
+
 window.setStyleSheet('''
                         background-color: AliceBlue;
                         color: Navy;
@@ -135,12 +140,15 @@ def show_notes():
 
     
 def set_password():
-    key = lst_notes.currentItem().text()
-    password, ok = QInputDialog.getText(window, 'Встановити пароль(❤ ω ❤)', 'Введіть пароль для замітки(⓿_⓿):')
-    if ok:
-        notes[key]['пароль'] = password
-        
-        saveToFile()
+    current_item = lst_notes.currentItem()
+    if current_item:
+        key = current_item.text()
+        password, ok = QInputDialog.getText(window, 'Встановити пароль(❤ ω ❤)', 'Введіть пароль для замітки(⓿_⓿):')
+        if ok:
+            notes[key]['пароль'] = password
+            saveToFile()
+    else:
+        QMessageBox.warning(window, 'Помилка(　o=^•ェ•)o　┏━┓', 'Будь ласка, виберіть замітку для встановлення паролю(。・ω・。)')
 
 
 def enter_password():
