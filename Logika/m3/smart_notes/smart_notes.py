@@ -37,8 +37,8 @@ btn_tag_add = QPushButton("Додати тег ◑﹏◐☕")
 btn_tag_del = QPushButton("Відкріпити від замітки (✿◕‿◕✿)🥞")
 btn_tag_search = QPushButton("Шукати замітки за тегом (★ ω ★)🍕")
 
-#штуки для паролю
-#set_password = QPushButton("Встановити Пароль(ﾉ*ФωФ)ﾉ")
+#пароль
+sett_password = QPushButton("Встановити  Новий Пароль(ﾉ*ФωФ)ﾉ")
 
 
 
@@ -107,6 +107,13 @@ btn_tag_search.setStyleSheet('''
                         border: 2px solid Coral; 
                         ''')
 
+sett_password.setStyleSheet('''
+                        background-color: Lime;
+                        color: MediumVioletRed;
+                        font-size: 20px;
+                        border: 2px solid Indigo; 
+                        ''')
+
 loyout_notes = QHBoxLayout()
 col1 = QVBoxLayout()
 col2 = QVBoxLayout()
@@ -120,6 +127,7 @@ col2.addWidget(lst_notes)
 col2.addWidget(btn_note_create)
 col2.addWidget(btn_note_delete)
 col2.addWidget(btn_note_save)
+col2.addWidget(sett_password)
 
 col2.addWidget(lb_tags)
 col2.addWidget(lst_tags)
@@ -162,6 +170,20 @@ def enter_password():
         filed_tag.clear()
         QMessageBox.warning(window, 'Помилка(　o=^•ェ•)o　┏━┓', 'Неправильний пароль!(。・ω・。)')
 
+        saveToFile()
+
+
+def set_new_password():
+    current_item = lst_notes.currentItem()
+    if current_item:
+        key = current_item.text()
+        new_password = input()
+        notes[key]['пароль'] = new_password
+        saveToFile()
+        QMessageBox.information(window, 'Новий пароль(ﾉ*ФωФ)ﾉ', 'Новий пароль для замітки "{key}": {new_password}')
+    else:
+        QMessageBox.warning(window, 'Помилка(　o=^•ェ•)o　┏━┓', 'Будь ласка, виберіть замітку для встановлення нового паролю(。・ω・。)')\
+        
         saveToFile()
 
 def note_create():
@@ -246,9 +268,9 @@ def tag_search():
 
 
 btn_note_save.clicked.connect(note_save)
+sett_password.clicked.connect(set_new_password)
 btn_note_delete.clicked.connect(note_delete)
 btn_note_create.clicked.connect(note_create)
-btn_note_create.clicked.connect(set_password)
 lst_notes.itemClicked.connect(show_notes)
 
 btn_tag_add.clicked.connect(tag_add)
