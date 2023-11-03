@@ -173,18 +173,7 @@ def enter_password():
         saveToFile()
 
 
-def set_new_password():
-    current_item = lst_notes.currentItem()
-    if current_item:
-        key = current_item.text()
-        new_password = input()
-        notes[key]['пароль'] = new_password
-        saveToFile()
-        QMessageBox.information(window, 'Новий пароль(ﾉ*ФωФ)ﾉ', 'Новий пароль для замітки "{key}": {new_password}')
-    else:
-        QMessageBox.warning(window, 'Помилка(　o=^•ェ•)o　┏━┓', 'Будь ласка, виберіть замітку для встановлення нового паролю(。・ω・。)')\
-        
-        saveToFile()
+
 
 def note_create():
     note_name, ok = QInputDialog.getText(window, 'Додати Замітку', 'Нова замітка')
@@ -268,7 +257,7 @@ def tag_search():
 
 
 btn_note_save.clicked.connect(note_save)
-sett_password.clicked.connect(set_new_password)
+sett_password.clicked.connect(set_password)
 btn_note_delete.clicked.connect(note_delete)
 btn_note_create.clicked.connect(note_create)
 lst_notes.itemClicked.connect(show_notes)
