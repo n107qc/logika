@@ -131,6 +131,7 @@ def show_notes():
         filed_text.setText(notes[key]['текст'])
         lst_tags.clear()
         lst_tags.addItems(notes[key]['теги'])
+        
 
     
 def set_password():
@@ -140,6 +141,7 @@ def set_password():
         notes[key]['пароль'] = password
         
         saveToFile()
+
 
 def enter_password():
     key = lst_notes.currentItem().text()
@@ -159,7 +161,7 @@ def note_create():
     note_name, ok = QInputDialog.getText(window, 'Додати Замітку', 'Нова замітка')
     if note_name and ok:
         lst_notes.addItem(note_name)
-        notes[note_name] = {'текст': "", 'теги': []}
+        notes[note_name] = {'текст': "", 'теги': [], 'пароль': ""}
         saveToFile()
         
 def note_delete():
