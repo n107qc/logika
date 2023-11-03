@@ -147,8 +147,7 @@ def set_password():
         if ok:
             notes[key]['пароль'] = password
             saveToFile()
-    else:
-        QMessageBox.warning(window, 'Помилка(　o=^•ェ•)o　┏━┓', 'Будь ласка, виберіть замітку для встановлення паролю(。・ω・。)')
+
 
 
 def enter_password():
@@ -169,8 +168,9 @@ def note_create():
     note_name, ok = QInputDialog.getText(window, 'Додати Замітку', 'Нова замітка')
     if note_name and ok:
         lst_notes.addItem(note_name)
-        notes[note_name] = {'текст': "", 'теги': [], 'пароль': ""}
+        notes[note_name] = {'текст': "", 'теги': [], 'пароль':"123"}
         saveToFile()
+      
         
 def note_delete():
     if lst_notes.currentItem():
@@ -242,6 +242,7 @@ def tag_search():
         lst_tags.clear()
         filed_text.clear()
         filed_tag.clear()
+
 
 
 btn_note_save.clicked.connect(note_save)
