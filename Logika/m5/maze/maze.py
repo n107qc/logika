@@ -1,6 +1,7 @@
 #створи гру "Лабіринт"!
 from typing import Any
 from pygame import *
+
 from pygame.transform import scale, flip
 from pygame.image import load
 from random import randint
@@ -16,7 +17,7 @@ class GameSprite(sprite.Sprite):
         self.rect.y = player_y
 
     def reset(self):
-        win.blit(self.image,(self.rect.x, self.rect.y))
+        wind.blit(self.image,(self.rect.x, self.rect.y))
 
 class Player(GameSprite):
     def update(self):
@@ -43,27 +44,63 @@ class Enemy(GameSprite):
         if self.rect.x >= win_width-80:
             self.direction = 'left'
 
+class Wall(sprite.Sprite):
+    def __init__(self, wall_x, wall_y, wall_width, wall_height):
+        super().__init__()
+        self.width = wall_width
+        self.height = wall_height
+        
+
+        self.image = Surface([self.width, self.height]) 
+        self.image.fill((23,58,212))
+
+        self.rect = self.image.get_rect()
+        self.rect.x = wall_x
+        self.rect.y = wall_y
+
+
+    def reset(self):
+        wind.blit(self.image, (self.rect.x, self.rect.y))
+
+
+    
 
 
 win_width = 700
 win_height = 500
 
-win = display.set_mode((win_width, win_height))
+wind = display.set_mode((win_width, win_height))
 
 bk = scale(load("background.jpg"),(win_width,win_height))
 player = Player("hero.png", 5,win_height - 65, 4)
 villain = Enemy("cyborg.png", win_width - 150,win_height - 250, 2)
 treasure = GameSprite("treasure.png", win_width-80, win_height-80, 0)
 
+
+Wall1 = Wall(100, 250, 22, 200)
+Wall2 = Wall(100, 100, 22, 400)
+Wall3 = Wall(100, 80, 200, 22)
+
+
 game = True
 finish = False
 clock = time.Clock()
 FPS = 144
 
+font.init()
+
+f = font.Font(None, 70)
+win = f.render('MOLODEC', True, (23, 79, 146))
+lose = f.render('NE MOLODEC', True, (69, 12, 99))
+
+
+
 mixer.init()
 mixer.music.load("jungles.ogg")
 mixer_music.play()
 
+final_sound = mixer.Sound('money.ogg')
+kick_sound = mixer.Sound('kick.ogg')
 print(True)
 print(False)
 
@@ -73,14 +110,26 @@ while game:
             game = False
 
     if not finish:
-        win.blit(bk, (0, 0))
+        wind.blit(bk, (0, 0))
         player.reset()
         villain.reset()
         treasure.reset()
+        Wall1.reset()
+        Wall2.reset()
+        Wall3.reset()
 
         player.update()
         villain.update()
+        if  sprite.collide_rect(player, treasure):
+            finish = True
+            wind.blit(win, (200, 200))
+            final_sound.play()
         
+        if  sprite.collide_rect(player, villain) or sprite.collide_rect(player, Wall1) :
+            finish = True
+            wind.blit(lose, (200, 200))
+            kick_sound.play()
+
 
     display.update()
     clock.tick(FPS)
