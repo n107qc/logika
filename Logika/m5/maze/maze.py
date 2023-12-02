@@ -39,7 +39,7 @@ class Enemy(GameSprite):
         else:
             self.rect.x += self.speed
                          
-        if self.rect.x <= 450:
+        if self.rect.x <= 110:
             self.direction = 'right'
         if self.rect.x >= win_width-80:
             self.direction = 'left'
@@ -77,10 +77,16 @@ villain = Enemy("cyborg.png", win_width - 150,win_height - 250, 2)
 treasure = GameSprite("treasure.png", win_width-80, win_height-80, 0)
 
 
-Wall1 = Wall(100, 250, 22, 200)
-Wall2 = Wall(100, 100, 22, 400)
-Wall3 = Wall(100, 80, 200, 22)
-
+Wall1 = Wall(100, 75, 22, 450)
+Wall2 = Wall(200, 0, 22, 250)
+Wall3 = Wall(200, 320, 22, 80)
+Wall4 = Wall(300, 320, 22, 300)
+Wall5 = Wall(300, 70, 22, 180)
+Wall6 = Wall(400, 0, 22, 250)
+Wall7 = Wall(400, 320, 22, 105)
+Wall8 = Wall(500, 70, 22, 180)
+Wall9 = Wall(500, 320, 22, 300)
+Wall10 = Wall(600, 0, 22, 400)
 
 game = True
 finish = False
@@ -117,6 +123,13 @@ while game:
         Wall1.reset()
         Wall2.reset()
         Wall3.reset()
+        Wall4.reset()
+        Wall5.reset()
+        Wall6.reset()
+        Wall7.reset()
+        Wall8.reset()
+        Wall9.reset()
+        Wall10.reset()
 
         player.update()
         villain.update()
@@ -125,7 +138,7 @@ while game:
             wind.blit(win, (200, 200))
             final_sound.play()
         
-        if  sprite.collide_rect(player, villain) or sprite.collide_rect(player, Wall1) :
+        if  sprite.collide_rect(player,villain) or sprite.collide_rect(player, Wall1) or sprite.collide_rect(player, Wall2) or sprite.collide_rect(player, Wall3) or sprite.collide_rect(player, Wall4) or sprite.collide_rect(player, Wall5) or sprite.collide_rect(player, Wall6) or sprite.collide_rect(player, Wall7) or sprite.collide_rect(player, Wall8) or sprite.collide_rect(player, Wall9) or sprite.collide_rect(player, Wall10) : 
             finish = True
             wind.blit(lose, (200, 200))
             kick_sound.play()
