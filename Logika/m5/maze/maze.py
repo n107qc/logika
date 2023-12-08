@@ -75,7 +75,7 @@ treasure = GameSprite("treasure.png", win_width-80, win_height-80, 0)
 
 Wall1 = Wall(100, 75, 15, 450)
 Wall2 = Wall(200, 0  ,15, 250)
-Wall3 = Wall(200, 320, 15, 80)
+Wall3 = Wall(200, 320,15, 80)
 Wall4 = Wall(300, 320,15, 300)
 Wall5 = Wall(300, 70, 15, 180)
 Wall6 = Wall(400, 0,  15, 250)
