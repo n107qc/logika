@@ -5,6 +5,7 @@ from pygame.transform import scale, flip
 from pygame.image import load
 from random import randint
 
+
 class GameSprite(sprite.Sprite):
     def __init__(self,player_image, player_x, player_y,player_width, player_height, player_speed):
         super().__init__()
@@ -32,6 +33,18 @@ class Player(GameSprite):
     def fire(self):
         pass
 
+class Enemy(GameSprite):
+    direction = 'left'
+    def update(self):
+        if self.direction == 'left':
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
+                         
+        if self.rect.x <= 110:
+            self.direction = 'right'
+        if self.rect.x >= win_width-80:
+            self.direction = 'left'
 
 win_width = 700
 win_height = 500
@@ -39,10 +52,16 @@ win_height = 500
 window = display.set_mode((win_width, win_height))
 bk = scale(load("galaxy.jpg"),(win_width,win_height))
 hero = Player("rocket.png", 5,win_height - 100, 80, 100, 5)
+villain = Enemy("ufo.png", 320, 0, 80, 80, 10)
 
 
 game = True 
 finish = False
+
+font.init()
+f = font.Font(None, 70)
+win = f.render('MOLODEC', True, (23, 79, 146))
+lose = f.render('NE MOLODEC', True, (69, 12, 99))
 
 mixer.init()
 mixer.music.load("space.ogg")
@@ -59,7 +78,16 @@ while game:
     if not finish:
         window.blit(bk, (0, 0))
         hero.reset() 
+        villain.reset()
 
+
+        villain.reset()
         hero.update()
+
+        if sprite.collide_rect(hero,villain):
+                finish = True
+                window.blit(lose, (200, 200))
+                
+
     display.update()
     clock.tick(FPS)
