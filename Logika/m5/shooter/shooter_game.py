@@ -5,6 +5,8 @@ from pygame.transform import scale, flip
 from pygame.image import load
 from random import randint
 
+lost = 0
+score = 0
 
 class GameSprite(sprite.Sprite):
     def __init__(self,player_image, player_x, player_y,player_width, player_height, player_speed):
@@ -36,15 +38,15 @@ class Player(GameSprite):
 class Enemy(GameSprite):
     direction = 'left'
     def update(self):
-        if self.direction == 'left':
-            self.rect.x -= self.speed
-        else:
-            self.rect.x += self.speed
+       self.rect.y+=self.speed 
+       global lost
+       if self.rect.y>win_height:
+           self.rect.x=randint(0, win_width-100)
+           self.rect.y=0
+           self.rect.x=randint(0, win_width-100)
+           lost = lost + 1
+           
                          
-        if self.rect.x <= 110:
-            self.direction = 'right'
-        if self.rect.x >= win_width-80:
-            self.direction = 'left'
 
 win_width = 700
 win_height = 500
@@ -52,21 +54,28 @@ win_height = 500
 window = display.set_mode((win_width, win_height))
 bk = scale(load("galaxy.jpg"),(win_width,win_height))
 hero = Player("rocket.png", 5,win_height - 100, 80, 100, 5)
-villain = Enemy("ufo.png", 320, 0, 80, 80, 10)
 
+monsters = sprite.Group()
+for i in range(2):
+    villain = Enemy("ufo.png", randint(0,win_width-100), 0, 100, 80, randint(1,3))
+    monsters.add(villain)
+for i in range(2):
+    villain2 = Enemy("asteroid.png", randint(0,win_width-100), 0, 100, 80, randint(1,3))
+    monsters.add(villain2)
 
 game = True 
 finish = False
 
-font.init()
-f = font.Font(None, 70)
-win = f.render('MOLODEC', True, (23, 79, 146))
-lose = f.render('NE MOLODEC', True, (69, 12, 99))
+
 
 mixer.init()
 mixer.music.load("space.ogg")
 mixer_music.play()
 mixer.music.set_volume(0.05)
+
+font.init()
+f = font.SysFont('Arial', 36)
+
 
 clock = time.Clock()
 FPS = 144
@@ -77,16 +86,19 @@ while game:
             game = False
     if not finish:
         window.blit(bk, (0, 0))
+        txt_lose = f.render(f'Пропущено:{lost}',True,(255,255,255))
+        txt_score = f.render(f'Рахунок:{score}',True,(255,255,255))
+        window.blit(txt_lose, (0,50))
+        window.blit(txt_score, (0,0))
         hero.reset() 
         villain.reset()
+        monsters.draw(window)
 
-
-        villain.reset()
+        monsters.update()
+        villain.update()
         hero.update()
 
-        if sprite.collide_rect(hero,villain):
-                finish = True
-                window.blit(lose, (200, 200))
+        
                 
 
     display.update()
